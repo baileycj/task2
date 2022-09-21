@@ -2,6 +2,7 @@ import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
 
+
 data class Vote(
     val voteFrom: Int,
     val voteTo: Int,
@@ -16,10 +17,6 @@ fun readCsv(): List<Vote> {
             Vote(voteFrom.trim().toInt(), voteTo.trim().toInt())
         }.toList()
 }
-
-
-
-
 val votes = readCsv(/*Open a stream to CSV file*/)
 
 fun OutputStream.writeCsv(votes: List<Vote>) {
@@ -33,10 +30,15 @@ fun OutputStream.writeCsv(votes: List<Vote>) {
     writer.flush()
 }
 
-val votes_array: Array<Vote> = votes.toTypedArray()
+fun countVotes() {
 
+    val tally = votes.groupingBy { it.voteTo }.eachCount()
+    println(tally)
 
-fun countVotes(){
+    val tallyArray: Array<Pair<Int, Int>> = tally.entries.map { Pair(it.key, it.value) }
+        .toTypedArray()
+
+    println(tallyArray.contentToString())
 
 }
 

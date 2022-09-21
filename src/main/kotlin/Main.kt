@@ -1,7 +1,13 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import java.io.FileOutputStream
+import java.util.Arrays
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+const val Data_Set_DIR = "./dataset/"
+fun main() {
+
+votes.forEach {Vote->println(Vote.voteTo)}
+
+    //FileOutputStream("./dataset/vote-count.csv").apply { writeCsv(votes) }
+
+    countVotes()
+
 }

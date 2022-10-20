@@ -1,3 +1,6 @@
+import kotlin.time.DurationUnit
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
 
 fun shellSort(arr: MutableList<CountedVotes>): MutableList<CountedVotes> {
 
@@ -28,14 +31,23 @@ fun shellSort(arr: MutableList<CountedVotes>): MutableList<CountedVotes> {
 
 fun getSS(rank: Int) {
     val index = rank
-    val rank = (shellSort(countMutableList))[index]
+    val rank = (shellSort(countMutableList))[index-1]
     println("UserID ${rank.candidate} is ranked at rank with ${rank.voteCount} votes")
 }
+
 
 
 fun main() {
     shellSort(countMutableList)
     println("Array after Shell sorting")
     println(countMutableList)
-    getSS(0)
+    getSS(1)
+}
+
+@OptIn(ExperimentalTime::class)
+fun benchMarkSS(times: Int){
+    repeat(times){
+        val (value, duration) = measureTimedValue { shellSort(countMutableList) }
+        println("It has taken ${duration.toDouble(DurationUnit.MILLISECONDS)}ms to Sort")
+    }
 }

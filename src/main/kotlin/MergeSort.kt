@@ -1,18 +1,21 @@
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
+
 fun mergeSort(list: List<CountedVotes>): List<CountedVotes> {
     if (list.size <= 1) {
         return list
     }
 
     val middle = list.size / 2
-    var left = list.subList(0,middle);
-    var right = list.subList(middle,list.size);
+    val left = list.subList(0,middle)
+    val right = list.subList(middle,list.size)
 
     return merge(mergeSort(left), mergeSort(right))
 }
 fun merge(left: List<CountedVotes>, right: List<CountedVotes>): List<CountedVotes>  {
     var indexLeft = 0
     var indexRight = 0
-    var newList : MutableList<CountedVotes> = mutableListOf()
+    val newList : MutableList<CountedVotes> = mutableListOf()
 
     while (indexLeft < left.count() && indexRight < right.count()) {
         if (compare(left[indexLeft], right[indexRight]) <= 0){
@@ -33,7 +36,7 @@ fun merge(left: List<CountedVotes>, right: List<CountedVotes>): List<CountedVote
         newList.add(right[indexRight])
         indexRight++
     }
-    return newList;
+    return newList
 }
 
 val numbers = countedVotes
@@ -41,11 +44,21 @@ val sortedList = mergeSort(numbers)
 
 fun getM(rank: Int) {
     val index = rank
-    val rank = (mergeSort(countedVotes).toList()[index])
+    val rank = (mergeSort(countedVotes).toList()[index-1])
     println("UserID ${rank.candidate} is ranked at rank with ${rank.voteCount} votes")
 }
+
+
 fun main() {
     println("After Merge Sort: $sortedList")
-    getM(0)
+    getM(1)
+    benchMarkMS(10)
 }
 
+@OptIn(ExperimentalTime::class)
+fun benchMarkMS(times: Int){
+    repeat(times){
+        val (value, duration) = measureTimedValue { mergeSort(countMutableList)}
+        println("It has taken $duration to Sort")
+    }
+}

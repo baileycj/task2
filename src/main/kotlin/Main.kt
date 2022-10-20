@@ -1,23 +1,39 @@
-const val Data_Set_DIR = "./dataset/"
 fun main() {
-
+    //Read in Wiki-Vote.csv
+    //Counts the votes for each candidate
+    //Writes Vote-Result.csv
     countVotes()
     println()
+    //Pre-Sorted Counted Votes
+    println(countedVotes)
+    //Merge Sort Vote-Result.csv
     println("Merge Sort")
     println(mergeSort(countedVotes))
     println()
+    //Quick Sort Vote-Result.csv
     println("Quick Sort")
     println(quicksort(countMutableList))
     println()
+    //Shell Sort Vote-Result.csv
     println("Shell Sort")
     println(shellSort(countMutableList))
     println()
     println()
-    getM(0)
+    //Gets the highest voted candidate from the Merge Sort
+    getM(1)
     println()
-    getQS(0)
+    //Gets the highest voted candidate from the Quick Sort
+    getQS(1)
     println()
-    getSS(0)
-
-
+    //Gets the highest voted candidate from the Shell Sort
+    getSS(1)
+    println()
+    println("MergeSort Benchmark")
+    benchMarkMS(10)
+    println()
+    println("QuickSort Benchmark")
+    benchMarkQS(10)
+    println()
+    println("ShellSort Benchmark")
+    benchMarkSS(10)
 }

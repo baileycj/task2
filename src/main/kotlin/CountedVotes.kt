@@ -18,6 +18,7 @@ fun readCount(): List<CountedVotes> {
 
 val countedVotes = readCount(/*Open a stream to CSV file*/)
 
+//Compares voteCount to see which count is larger and returns 0 for equal, 1 for larger -1 if it is smaller.
 fun compare(countedVotes: CountedVotes, countedVotes1: CountedVotes): Int {
     if (countedVotes.voteCount == countedVotes1.voteCount){
         return 0

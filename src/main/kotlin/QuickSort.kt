@@ -1,4 +1,7 @@
 
+import kotlin.time.DurationUnit
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
 
 fun quicksort(items: MutableList<CountedVotes>): Collection<CountedVotes> {
     // Return if the input list is empty or only has 1 entry, since it's already sorted
@@ -31,13 +34,23 @@ fun quicksort(items: MutableList<CountedVotes>): Collection<CountedVotes> {
 
 fun getQS(rank: Int) {
     val index = rank
-    val rank = (quicksort(countMutableList).toList()[index])
+    val rank = (quicksort(countMutableList).toList()[index-1])
     println("UserID ${rank.candidate} is ranked at rank with ${rank.voteCount} votes")
 }
+
 fun main() {
-    // Quick Sort the list and print it
+    //Quick Sort the list and print it
     quicksort(countMutableList)
-    getQS(0)
-    println(sortedList)
+    //get the highest voted candidate after quick sorting.
+    getQS(1)
+    //println(sortedList)
+    benchMarkQS(10)
 }
 
+@OptIn(ExperimentalTime::class)
+fun benchMarkQS(times: Int){
+    repeat(times){
+        val (value, duration) = measureTimedValue { quicksort(countMutableList) }
+        println("It has taken ${duration.toDouble(DurationUnit.MILLISECONDS)}ms to Sort")
+    }
+}

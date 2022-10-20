@@ -1,13 +1,23 @@
-import java.io.FileOutputStream
-import java.util.Arrays
-
 const val Data_Set_DIR = "./dataset/"
 fun main() {
 
-    //FileOutputStream("./dataset/vote-count.csv").apply { writeCsv(votes) }
-
     countVotes()
-
+    println()
+    println("Merge Sort")
+    println(mergeSort(countedVotes))
+    println()
+    println("Quick Sort")
+    println(quicksort(countMutableList))
+    println()
+    println("Shell Sort")
+    println(shellSort(countMutableList))
+    println()
+    println()
+    getM(0)
+    println()
+    getQS(0)
+    println()
+    getSS(0)
 
 
 }

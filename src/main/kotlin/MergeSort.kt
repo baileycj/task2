@@ -1,4 +1,4 @@
-fun mergeSort(list: List<Int>): List<Int> {
+fun mergeSort(list: List<CountedVotes>): List<CountedVotes> {
     if (list.size <= 1) {
         return list
     }
@@ -9,13 +9,13 @@ fun mergeSort(list: List<Int>): List<Int> {
 
     return merge(mergeSort(left), mergeSort(right))
 }
-fun merge(left: List<Int>, right: List<Int>): List<Int>  {
+fun merge(left: List<CountedVotes>, right: List<CountedVotes>): List<CountedVotes>  {
     var indexLeft = 0
     var indexRight = 0
-    var newList : MutableList<Int> = mutableListOf()
+    var newList : MutableList<CountedVotes> = mutableListOf()
 
     while (indexLeft < left.count() && indexRight < right.count()) {
-        if (left[indexLeft] <= right[indexRight]) {
+        if (compare(left[indexLeft], right[indexRight]) <= 0){
             newList.add(left[indexLeft])
             indexLeft++
         } else {
@@ -36,9 +36,16 @@ fun merge(left: List<Int>, right: List<Int>): List<Int>  {
     return newList;
 }
 
-fun main(args: Array<String>) {
-    val numbers = mutableListOf(38,27,43,3,9,82,10)
-    val sortedList = mergeSort(numbers)
-    println("Unsorted: $numbers")
-    println("Sorted: $sortedList")
+val numbers = countedVotes
+val sortedList = mergeSort(numbers)
+
+fun getM(rank: Int) {
+    val index = rank
+    val rank = (mergeSort(countedVotes).toList()[index])
+    println("UserID ${rank.candidate} is ranked at rank with ${rank.voteCount} votes")
 }
+fun main() {
+    println("After Merge Sort: $sortedList")
+    getM(0)
+}
+

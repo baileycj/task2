@@ -1,4 +1,5 @@
 import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -19,26 +20,28 @@ fun readCsv(): List<Vote> {
 }
 val votes = readCsv(/*Open a stream to CSV file*/)
 
-fun OutputStream.writeCsv(votes: List<Vote>) {
+fun OutputStream.writeCsv(entries: List<String>) {
     val writer = bufferedWriter()
-    writer.write(""""VoteCaster", "VoteReceiver"""")
+    writer.write("""Candidate, VoteCount""")
     writer.newLine()
-    votes.forEach {
-        writer.write("${it.voteFrom}, ${it.voteTo}")
+    writer.newLine()
+    entries.forEach {
+        writer.write(it)
         writer.newLine()
     }
     writer.flush()
 }
 
 fun countVotes() {
-
+    //groups who have been voted for, counts each time they have been voted for.
     val tally = votes.groupingBy { it.voteTo }.eachCount()
-    println(tally)
-
-    val tallyArray: Array<Pair<Int, Int>> = tally.entries.map { Pair(it.key, it.value) }
-        .toTypedArray()
-
-    println(tallyArray.contentToString())
-
+    //println(tally)
+    //changes the map of vote counts to a list
+    val voteResults: List<String> = tally.toList().map { "${it.first}, ${it.second}" }
+    //print(voteResults)
+    //writes the candidate and their vote count to csv.
+    FileOutputStream("./dataset/Vote-Results.csv").apply { writeCsv(voteResults) }
 }
+
+
 

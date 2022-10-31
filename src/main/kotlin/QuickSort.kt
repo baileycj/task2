@@ -3,20 +3,20 @@ import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
-fun quicksort(items: MutableList<CountedVotes>): Collection<CountedVotes> {
+fun quicksort(list: MutableList<CountedVotes>): Collection<CountedVotes> {
     // Return if the input list is empty or only has 1 entry, since it's already sorted
-    if (items.size <= 1) {
-        return items
+    if (list.size <= 1) {
+        return list
     }
 
     // Pick a pivot
-    val chosenItem: CountedVotes = items[items.size / 2]
+    val chosenItem: CountedVotes = list[list.size / 2]
 
     // Partition items in three sets: smaller, equal and greater than chosen item
     val smallerList: MutableList<CountedVotes> = mutableListOf()
     val equalList: MutableList<CountedVotes> = mutableListOf()
     val greaterList: MutableList<CountedVotes> = mutableListOf()
-    items.forEach {
+    list.forEach {
         when {
             compare(chosenItem, it) > compare(it, chosenItem) -> smallerList.add(it)
             compare(chosenItem, it) < compare(it, chosenItem) -> greaterList.add(it)

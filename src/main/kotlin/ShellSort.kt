@@ -2,9 +2,9 @@ import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
-fun shellSort(arr: MutableList<CountedVotes>): MutableList<CountedVotes> {
+fun shellSort(list: MutableList<CountedVotes>): MutableList<CountedVotes> {
 
-    val n = arr.size
+    val n = list.size
 
     var gap = n / 2
     while (gap > 0) {
@@ -12,15 +12,15 @@ fun shellSort(arr: MutableList<CountedVotes>): MutableList<CountedVotes> {
         var i = gap
         while (i < n) {
 
-            val temp = arr[i]
+            val temp = list[i]
 
             var j = i
-            while (j >= gap && compare(arr[j - gap], temp) > compare(temp, arr[j])) {
-                arr[j] = arr[j - gap]
+            while (j >= gap && compare(list[j - gap], temp) > compare(temp, list[j])) {
+                list[j] = list[j - gap]
                 j -= gap
             }
 
-            arr[j] = temp
+            list[j] = temp
             i += 1
         }
         gap /= 2
@@ -28,14 +28,11 @@ fun shellSort(arr: MutableList<CountedVotes>): MutableList<CountedVotes> {
     return countMutableList
 }
 
-
 fun getSS(rank: Int) {
     val index = rank
     val rank = (shellSort(countMutableList))[index-1]
     println("UserID ${rank.candidate} is ranked at rank with ${rank.voteCount} votes")
 }
-
-
 
 fun main() {
     shellSort(countMutableList)
